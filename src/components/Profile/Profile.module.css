@@ -1,0 +1,27 @@
+.profile {
+    margin: 10px;
+    padding: 10px;
+    background-color: #454545;
+    border-radius: 5px;
+}
+.profileWrapper{
+    display: flex;
+}
+
+.about{
+    margin-left: 10px;
+}
+.about p{
+    color: white;
+    margin: 0;
+}
+
+.profileImage img{
+    height: 300px;
+    width: 400px;
+}
+
+.posts h3{
+    color: #7ddfff;
+    margin: 5px ;
+}

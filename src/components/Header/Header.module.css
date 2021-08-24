@@ -1,0 +1,17 @@
+.logo {
+    display: flex;
+    padding: 6px 0;
+    color: white;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+.logo p {
+    margin: 0;
+}
+
+.logo img {
+    width: 46px;
+    height: 40px;
+    margin-right: 5px;
+}

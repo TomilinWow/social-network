@@ -1,0 +1,35 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogItems{
+    margin-right: 10px;
+    padding: 10px;
+    background-color: #454545;
+    border-radius: 5px;
+}
+.messages{
+    padding: 10px;
+    background-color: #454545;
+    border-radius: 5px;
+}
+
+.sendText{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.messages{
+    text-align: center;
+}
+.sendText{
+
+    text-align: right;
+
+}
+.sendText textarea{
+    margin-right: 10px;
+
+}
