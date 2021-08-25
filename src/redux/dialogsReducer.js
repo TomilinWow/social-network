@@ -6,7 +6,9 @@ let initialState = {
         {id: 1, text: 'Hello'},
     ],
     dialogs: [
-        {id: 1, name: 'Egor'}
+        {id: 1, name: 'Egor'},
+        {id: 1, name: 'Tima'},
+        {id: 1, name: 'Alex'}
     ],
     newMessageBody: ""
 };
@@ -18,11 +20,11 @@ const dialogsReducer = (state = initialState, action) => {
             state.newMessageBody = action.body;
             return state;
         case SEND_NEW_MESSAGE:
-            let post = {
+            let message = {
                 id: 1,
                 text: state.newMessageBody
             };
-            state.messages.push(post);
+            state.messages.push(message);
             state.newMessageBody = '';
             return state;
 
@@ -36,7 +38,7 @@ export const updateNewMessageBodyCreator = (body) =>
     ({type: UPDATE_NEW_MESSAGE_BODY, body: body})
 
 
-export const addNewPostCreator = () =>
+export const sendNewMessageCreator = () =>
     ({type: SEND_NEW_MESSAGE})
 
 
