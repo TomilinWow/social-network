@@ -1,7 +1,21 @@
 import s from './Profile.module.css';
+import {addNewPostCreator, updateNewMessageBodyCreator} from "../../redux/profileReducer";
+import React from "react";
+import Post from "./Post/Post.jsx"
 
+const Profile = (props) => {
 
-const Profile = () => {
+    let newPostElement = React.createRef();
+    let state = props.store.getState();
+    let postItems = state.profilePage.posts.map( p => <Post text={p.text}/>)
+    const changeText = () => {
+        let body = newPostElement.current.value;
+        props.store.dispatch(updateNewMessageBodyCreator(body))
+    }
+
+    const addPost = () => {
+        props.store.dispatch(addNewPostCreator())
+    }
     return (
         <div className={s.profile}>
             <div className={s.profileWrapper}>
@@ -17,9 +31,16 @@ const Profile = () => {
             </div>
             <div className={s.posts}>
                 <h3>My Posts</h3>
-                <textarea placeholder="Your new post..." cols="50" rows="3"></textarea>
+                <div className={s.postItems}>
+                    {postItems}
+                </div>
+                <textarea onChange={changeText}
+                          ref={newPostElement}
+                          value={state.profilePage.newMessageBody}
+                          placeholder="Your new post..." cols="50"
+                          rows="3"/>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
 
             </div>
