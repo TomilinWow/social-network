@@ -1,0 +1,35 @@
+.userContent{
+    margin: 5px;
+    padding: 5px;
+    background-color: #949494;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas:
+    "followed info locale";
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.userContent img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+}
+.userFollow{
+    grid-area: followed;
+    margin: 0 auto;
+}
+
+.userFollow div button{
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.userInfo{
+    grid-area: info;
+}
+
+.userLocale{
+    grid-area: locale;
+}
