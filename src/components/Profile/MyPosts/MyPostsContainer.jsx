@@ -1,28 +1,28 @@
-
 import React from "react";
 import MyPosts from "./MyPosts";
 import {addNewPostCreator, updateNewMessageBodyCreator} from "../../../redux/profileReducer";
+import {sendNewMessageCreator} from "../../../redux/dialogsReducer";
+import {connect} from "react-redux";
 
-const MyPostsContainer = (props) => {
 
-    let state = props.store.getState();
-
-    const changeText = (text) => {
-        props.store.dispatch(updateNewMessageBodyCreator(text))
+let mapStateToProps = (state) => {
+    return {
+        newMessageBody: state.profilePage.newMessageBody,
+        posts: state.profilePage.posts
     }
-
-    const addPost = () => {
-        props.store.dispatch(addNewPostCreator())
-    }
-
-    return (
-        <MyPosts changeText={changeText}
-                 addPost={addPost}
-                 posts={state.profilePage.posts}
-                 newMessageBody={state.profilePage.newMessageBody}/>
-
-    );
-
 }
 
+let mapDispatchToProps = (dispatch) => {
+    return {
+        changeText: (text) => {
+            dispatch(updateNewMessageBodyCreator(text))
+        },
+        addPost: () => {
+            dispatch(addNewPostCreator())
+        }
+
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 export default MyPostsContainer;
