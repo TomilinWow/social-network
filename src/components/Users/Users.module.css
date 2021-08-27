@@ -12,7 +12,7 @@
 .userContent img{
     width: 90px;
     height: 90px;
-    border-radius: 50px;
+    border-radius: 90px;
 }
 .userFollow{
     grid-area: followed;
@@ -32,4 +32,20 @@
 
 .userLocale{
     grid-area: locale;
+}
+
+
+.paginator{
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+.paginator span{
+    margin: 10px;
+}
+.selectedPage{
+    font-weight: bold;
+    color: #7ddfff;
+    font-size: 22px;
+
 }
