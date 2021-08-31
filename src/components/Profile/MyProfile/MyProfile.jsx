@@ -1,18 +1,21 @@
 import s from './MyProfile.module.css';
 import React from "react";
+import Preloader from "../../Tools/Preloader";
+import profilePhoto from '../../../assets/images/user.png'
 
 
 const MyProfile = (props) => {
-
+    if (!props.profile){
+        return <Preloader/>
+    }
     return (
         <div className={s.profileWrapper}>
             <div className={s.profileImage}>
-                <img src="https://robb.report/upload/custom/8c5/8c5cd6d84c19af7bbd4721f4797f234b.jpg" alt=""/>
+                <img src={props.profile.photos.large ? props.profile.photos.large: profilePhoto} alt=""/>
             </div>
             <div className={s.about}>
-                <p>name: Ilon</p>
-                <p>lastname: Mask</p>
-                <p>date: 28.06.1971</p>
+                <p>name: {props.profile.fullName}</p>
+
             </div>
         </div>
     );

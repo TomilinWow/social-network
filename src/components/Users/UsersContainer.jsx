@@ -1,37 +1,48 @@
 import {connect} from "react-redux";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from "../../redux/usersReducer";
+import {
+    follow, getUsers,
+    reloader,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleFollowingProgress,
+    unfollow
+} from "../../redux/users-reducer";
 import Users from "./Users";
+import Preloader from '../Tools/Preloader'
 import React from "react";
-import * as axios from "axios";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pagesCount}`).then(response => {
-            this.props.setUsers(response.data.items)
-
-            // this.props.setTotalUserCount(response.data.totalCount)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pagesCount)
     }
+
 
     onCurrentPageChanged = (pageId) => {
-        this.props.setCurrentPageId(pageId)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageId}&count=${this.props.pagesCount}`).then(response => {
-            this.props.setUsers(response.data.items)
-        })
+        this.props.setCurrentPage(pageId)
+        this.props.getUsers(pageId, this.props.pagesCount)
     }
+
 
     render() {
 
-        return <Users users={this.props.users}
-                      pagesCount={this.props.pagesCount}
-                      follow={this.props.follow}
-                      totalUsersCount={this.props.totalUsersCount}
-                      unfollow={this.props.unfollow}
-                      currentPage={this.props.currentPage}
-                      onCurrentPageChanged={this.onCurrentPageChanged}
-        />
+        return <>
+            {
+                this.props.isReloaded ? <Preloader/> : null
+            }
+            <Users users={this.props.users}
+                   pagesCount={this.props.pagesCount}
+                   follow={this.props.follow}
+                   totalUsersCount={this.props.totalUsersCount}
+                   unfollow={this.props.unfollow}
+                   currentPage={this.props.currentPage}
+                   onCurrentPageChanged={this.onCurrentPageChanged}
+                   followingInProgress={this.props.followingInProgress}
+            />
+        </>
     }
 }
 
@@ -40,29 +51,24 @@ let mapStateToProps = (state) => {
         users: state.usersPage.users,
         pagesCount: state.usersPage.pagesCount,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isReloaded: state.usersPage.isReloaded,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPageId: (pageId) => {
-            dispatch(setCurrentPageAC(pageId))
-        },
-        setTotalUserCount: (count) => {
-            dispatch(setTotalUsersCountAC(count))
-        }
 
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default compose(
+    connect(mapStateToProps,
+        {
+            follow,
+            unfollow,
+            setUsers,
+            setCurrentPage,
+            setTotalUsersCount,
+            reloader,
+            getUsers,
+            toggleFollowingProgress
+        }),
+    withAuthRedirect
+)(UsersContainer)
