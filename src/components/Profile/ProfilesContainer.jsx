@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {
     addNewPost,
-    updateNewMessageBody, getUsers
+    updateNewMessageBody, getUsers, setStatus
 } from "../../redux/profile-reducer";
 import Preloader from '../Tools/Preloader'
 import React from "react";
@@ -16,6 +16,7 @@ class ProfilesContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId
         this.props.getUsers(userId)
+        this.props.setStatus(userId)
     }
 
     render() {
@@ -28,6 +29,7 @@ class ProfilesContainer extends React.Component {
             }
             <Profile {...this.props}
                      profile={this.props.profile}
+                     status={this.props.status}
             />
         </>
     }
@@ -37,7 +39,8 @@ class ProfilesContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        status: state.profilePage.status
     }
 }
 
@@ -46,7 +49,8 @@ export default compose(
     connect(mapStateToProps, {
         updateNewMessageBody,
         addNewPost,
-        getUsers
+        getUsers,
+        setStatus
     }),
     withRouter,
     withAuthRedirect
