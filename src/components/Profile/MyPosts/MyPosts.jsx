@@ -1,20 +1,27 @@
 import s from './MyPosts.module.css';
 import React from "react";
 import Post from "../Post/Post";
+import {useForm} from "react-hook-form";
 
+
+const FormMyPost = (props) => {
+    const {register, handleSubmit} = useForm()
+    return <form onSubmit={handleSubmit(props.addNewPost)}>
+        <textarea placeholder={'Your text...'} {...register('post')}/>
+        <div>
+            <button>Add post</button>
+        </div>
+    </form>
+
+}
 
 const MyPosts = (props) => {
 
-    let newPostElement = React.createRef();
     let postItems = props.posts.map(p => <Post text={p.text}/>)
 
-    const changeText = () => {
-        let body = newPostElement.current.value;
-        props.changeText(body)
-    }
+    let addNewPost = (value) => {
+        props.addPost(value.post)
 
-    const addPost = () => {
-        props.addPost()
     }
 
     return (
@@ -23,14 +30,7 @@ const MyPosts = (props) => {
             <div className={s.postItems}>
                 {postItems}
             </div>
-            <textarea onChange={changeText}
-                      ref={newPostElement}
-                      value={props.newMessageBody}
-                      placeholder="Your new post..." cols="50"
-                      rows="3"/>
-            <div>
-                <button onClick={addPost}>Add post</button>
-            </div>
+            <FormMyPost addNewPost={addNewPost}/>
         </div>
     );
 }

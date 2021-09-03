@@ -1,6 +1,5 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 const ADD_NEW_POST = 'ADD_NEW_POST'
 const SET_RELOADER = 'SET_RELOADER'
 const SET_PROFILE_DATA = 'SET_PROFILE_DATA'
@@ -10,26 +9,19 @@ let initialState = {
     posts: [
         {id: 1, text: 'Post'},
     ],
-    newMessageBody: '',
     profile: null,
     isReloaded: false,
-    status: '123'
+    status: '123',
+    newMessageBody: ''
 
 };
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
         case ADD_NEW_POST:
-            let post = state.newMessageBody
             return {
                 ...state,
-                newMessageBody: '',
-                posts: [...state.posts, {id: 2, text: post}]
+                posts: [...state.posts, {id: 2, text: action.text}]
             }
         case SET_PROFILE_DATA:
             return {
@@ -52,18 +44,14 @@ const profileReducer = (state = initialState, action) => {
 }
 
 
-export const updateNewMessageBody = (body) =>
-    ({type: UPDATE_NEW_MESSAGE_BODY, body: body})
-
-export const addNewPost = () =>
-    ({type: ADD_NEW_POST})
+export const addNewPost = (text) =>
+    ({type: ADD_NEW_POST, text})
 
 export const setProfileData = (profile) =>
     ({type: SET_PROFILE_DATA, profile})
 
 export const reloader = (isFetching) =>
     ({type: SET_RELOADER, isFetching})
-
 
 export const setProfileStatus = (status) =>
     ({type: SET_PROFILE_STATUS, status})
@@ -90,12 +78,13 @@ export const getStatus = (userId) => {
     }
 }
 
-export const setStatus = (userId) => {
+export const setStatus = (status) => {
     return (dispatch) => {
 
-        profileAPI.setStatus(userId).then(response => {
+        profileAPI.setStatus(status).then(response => {
+
             if (response.data.resultCode === 0){
-                dispatch(setProfileStatus(response.data))
+                dispatch(setProfileStatus(status))
             }
         })
 

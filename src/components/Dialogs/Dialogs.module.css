@@ -27,17 +27,14 @@
 
 .sendText{
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
-
 }
+
 .messages{
     text-align: right;
 
 }
 .sendText{
-
-    text-align: right;
+    text-align: center;
 
 }
 .sendText textarea{

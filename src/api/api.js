@@ -40,6 +40,17 @@ export const profileAPI = {
     },
 
     setStatus(status) {
-        return instance.put(`/profile/status/`, {status})
+        return instance.put(`/profile/status/`, {status: status})
+    }
+}
+
+export const authAPI = {
+    login(data){
+        return instance.post(`auth/login`, {
+            email: data.email,
+            password: data.password,
+            rememberMe: data.rememberMe,
+            captcha: true
+        })
     }
 }

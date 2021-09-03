@@ -2,21 +2,32 @@ import s from './Dialogs.module.css';
 import React from "react";
 import Message from "./Message/Message";
 import Dialog from "./Dialog/Dialog";
-import {Redirect} from 'react-router-dom'
+import {useForm} from "react-hook-form";
+
+const FormForMessage = (props) => {
+    const {register, handleSubmit} = useForm()
+    return (
+            <form onSubmit={handleSubmit(props.sendMessage)} >
+                <textarea placeholder={'Your message...'} {...register('message')}/>
+                <button>Send</button>
+
+            </form>
+        )
+
+
+}
+
+
 const Dialogs = (props) => {
-    let newMessageElement = React.createRef();
+
     let messageItems = props.state.dialogsPage.messages.map(p => <Message item={p.text}/>)
     let dialogItems = props.state.dialogsPage.dialogs.map(d => <Dialog item={d.name}/>)
 
-    const changeText = (text) => {
-        text = newMessageElement.current.value
-        props.changeText(text)
-    }
 
-    const sendMessage = () => {
-        props.sendMessage()
+    const sendMessage = (value) => {
+        props.sendNewMessageCreator(value.message)
     }
-    if (props.isAuth === false) return <Redirect to='/login'/>
+    // if (props.isAuth === false) return <Redirect to='/login'/>
 
     return (
 
@@ -29,13 +40,9 @@ const Dialogs = (props) => {
                     {messageItems}
                 </div>
                 <div className={s.sendText}>
-                    <textarea onChange={changeText}
-                        ref={newMessageElement}
-                        value={props.newMessageBody}
-                        placeholder="Your text..."
-                        cols="60" rows="1"/>
-                    <button onClick={sendMessage}>Send</button>
+                    <FormForMessage sendMessage={sendMessage}/>
                 </div>
+
             </div>
         </div>
     );
