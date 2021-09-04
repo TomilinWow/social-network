@@ -5,9 +5,10 @@ import {useForm} from "react-hook-form";
 
 
 const FormMyPost = (props) => {
-    const {register, handleSubmit} = useForm()
+    const {register, handleSubmit, formState: { errors }} = useForm()
     return <form onSubmit={handleSubmit(props.addNewPost)}>
-        <textarea placeholder={'Your text...'} {...register('post')}/>
+        <textarea placeholder={'Your text...'} {...register('post', {required: true })} />
+        {errors.post && <span className={s.error}>This field is required</span>}
         <div>
             <button>Add post</button>
         </div>

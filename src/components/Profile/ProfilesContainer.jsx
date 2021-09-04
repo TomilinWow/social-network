@@ -15,6 +15,9 @@ class ProfilesContainer extends React.Component {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
+        if (!userId){
+            userId = this.props.id
+        }
         this.props.getUsers(userId)
         this.props.getStatus(userId)
     }
@@ -23,7 +26,6 @@ class ProfilesContainer extends React.Component {
 
         if (!this.props.isAuth) return <Redirect to='/login'/>
         return <>
-
             {
                 this.props.isReloaded ? <Preloader/> : null
             }
@@ -41,7 +43,8 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         isAuth: state.auth.isAuth,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        id: state.auth.id
     }
 }
 

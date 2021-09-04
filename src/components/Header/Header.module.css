@@ -31,3 +31,10 @@
 .headerContent{
     color: white
 }
+.headerContent span{
+    color: #7ddfff;
+    border: none;
+    background-color: #454545;
+    cursor: pointer;
+}
+

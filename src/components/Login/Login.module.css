@@ -8,3 +8,25 @@
     padding-bottom: 10px;
 }
 
+.required{
+    position: absolute;
+
+    margin-left: 10px;
+    top: -5px;
+    bottom: 0;
+
+}
+.inputField span{
+    padding: 0;
+}
+.required i{
+    font-size: 14px;
+}
+.inputField{
+    position: relative;
+    margin-top: 10px;
+}
+
+.inputField input{
+    padding: 10px 5px;
+}

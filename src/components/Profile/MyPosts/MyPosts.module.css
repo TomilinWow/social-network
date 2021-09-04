@@ -5,3 +5,12 @@
 .postItems{
     margin-bottom: 5px;
 }
+
+.error{
+    background-color: hotpink;
+    color: white;
+    padding: 3px;
+    position: absolute;
+    margin-left: 10px;
+
+}
