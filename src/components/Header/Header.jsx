@@ -2,7 +2,6 @@ import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
 
 const Header = (props) => {
-    debugger
     return <div className={s.header}>
         <div className={s.logo}>
             <img src="https://cdn.freelogovectors.net/wp-content/uploads/2018/12/react_logo.png" alt=""/>

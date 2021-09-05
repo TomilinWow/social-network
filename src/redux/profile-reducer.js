@@ -8,6 +8,8 @@ const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 let initialState = {
     posts: [
         {id: 1, text: 'Post'},
+        {id: 1, text: 'Post'},
+        {id: 1, text: 'Post'},
     ],
     profile: null,
     isReloaded: false,

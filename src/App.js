@@ -17,7 +17,6 @@ import Preloader from "./components/Tools/Preloader";
 class App extends Component {
 
     componentDidMount() {
-        debugger
         this.props.initializeApp()
     }
 

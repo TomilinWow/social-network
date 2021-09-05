@@ -1,5 +1,4 @@
 import {usersAPI} from "../api/api";
-import {setAuthUserData} from "./auth-reducer";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -9,7 +8,6 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const SET_RELOADER = 'SET_RELOADER'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
-
 let initialState = {
     users: [],
     pagesCount: 5,
@@ -18,7 +16,6 @@ let initialState = {
     isReloaded: false,
     followingInProgress: []
 };
-
 
 const usersReducer = (state = initialState, action) => {
 
@@ -95,7 +92,7 @@ export const toggleFollowingProgress = (isFetching, userId) =>
 export default usersReducer;
 
 
-export const getUsers = (currentPage, pagesCount) => {
+export const requestUsers = (currentPage, pagesCount) => {
     return (dispatch) => {
         dispatch(reloader(true))
         usersAPI.setUsers(currentPage, pagesCount).then(data => {

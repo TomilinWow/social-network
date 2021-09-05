@@ -16,24 +16,25 @@ const FormMyPost = (props) => {
 
 }
 
-const MyPosts = (props) => {
+const MyPosts = props => {
+        console.log('render')
+        let postItems = props.posts.map(p => <Post text={p.text}/>)
 
-    let postItems = props.posts.map(p => <Post text={p.text}/>)
+        let addNewPost = (value) => {
+            props.addPost(value.post)
 
-    let addNewPost = (value) => {
-        props.addPost(value.post)
+        }
 
+        return (
+            <div className={s.posts}>
+                <h3>My Posts</h3>
+                <div className={s.postItems}>
+                    {postItems}
+                </div>
+                <FormMyPost addNewPost={addNewPost}/>
+            </div>
+        );
     }
 
-    return (
-        <div className={s.posts}>
-            <h3>My Posts</h3>
-            <div className={s.postItems}>
-                {postItems}
-            </div>
-            <FormMyPost addNewPost={addNewPost}/>
-        </div>
-    );
-}
 
 export default MyPosts;
