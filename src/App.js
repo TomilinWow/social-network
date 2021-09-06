@@ -1,4 +1,3 @@
-import Header from './components/Header/Header';
 import s from "./App.module.css";
 import Navbar from "./components/Navbar/Navbar";
 import {Route, withRouter} from "react-router-dom";
