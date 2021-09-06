@@ -3,8 +3,7 @@ import profileReducer, {addNewPost} from "./profile-reducer";
 let initialState = {
     posts: [
         {id: 1, text: 'Post'},
-        {id: 1, text: 'Post'},
-        {id: 1, text: 'Post'},
+
     ],
 };
 
